@@ -75,7 +75,7 @@ function display_new_question() {
  */
 function check_answer() {
     const userAnswer = parseInt($('#answer_input').val(), 10);
-
+    $("#hint_text").text('');
     if (userAnswer === gameState.currentAnswer) {
         // Correct! Increment score.
         gameState.score++;
@@ -148,7 +148,7 @@ function create_hint() {
 
 function illuminate_hint() {
    // show all of the possible answers
-   alert(gameState.hints);
+   $('#hint_text').text('Possible answers: ' + gameState.hints.join(', '));
 }
 
 $(document).ready(function () {
