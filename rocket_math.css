@@ -67,6 +67,7 @@ body {
    padding: 0px; 
    color: #775080; 
    background-color: #FFFFAB;
+   cursor: pointer;
 }
 /* Answer section */
 .answer {
@@ -105,6 +106,7 @@ body {
     text-align: center;
     background-color: #fff;
     color: #FFFFAB;
+    cursor: pointer;
 
 }
 
@@ -119,8 +121,8 @@ body {
     background-color: #fff;
     border: 3px solid #775080;
     border-radius: 6px;
-    cursor: pointer;
     transition: background-color 0.3s;
+    cursor: pointer;
 }
 
 #submit_button:hover {
