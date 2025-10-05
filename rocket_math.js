@@ -75,10 +75,13 @@ function display_new_question() {
  */
 function check_answer() {
     const userAnswer = parseInt($('#answer_input').val(), 10);
-    $("#hint_text").text('');
     if (userAnswer === gameState.currentAnswer) {
         // Correct! Increment score.
-        gameState.score++;
+        if ($("#hint_text").text() == "") {
+           gameState.score += 5;
+        } else {
+           gameState.score++;
+        }
         $('#score_text').text(`${gameState.score}`);
         // Load the next question immediately.
         display_new_question();
@@ -92,6 +95,7 @@ function check_answer() {
             display_new_question();
         }
     }
+    $("#hint_text").text('');
 }
 
 /**
