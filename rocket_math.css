@@ -154,6 +154,18 @@ body {
     margin-right: 8px;
 }
 
+@keyframes shake-left-right {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake-active {
+  animation: shake-left-right 0.3s ease-in-out; /* Adjust duration and timing as needed */
+}
+
 
 #settings_toggle_button {
     position: absolute;

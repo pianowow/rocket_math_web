@@ -62,40 +62,42 @@ function new_question(operation) {
  * Creates a new question and displays it in the question div.
  */
 function display_new_question() {
-    const problem = new_question($('#operator_select').val());
+    const problem = new_question(document.getElementById('operator_select').value);
     gameState.currentAnswer = problem.answer;
     create_hint();
     const question_text = `${problem.num1} ${problem.operator} ${problem.num2} = ?`;
-    $('#question_text').text(question_text);
-    $('#answer_input').val('').focus();
+    document.getElementById('question_text').innerText = question_text;
+    let ans_input = document.getElementById('answer_input');  
+    ans_input.value = ''
+    ans_input.focus();
 }
 
 /**
  * Checks the user's submitted answer.
  */
 function check_answer() {
-    const userAnswer = parseInt($('#answer_input').val(), 10);
+    const userAnswer = parseInt(document.getElementById('answer_input').value, 10);
     if (userAnswer === gameState.currentAnswer) {
         // Correct! Increment score.
-        if ($("#hint_text").text() == "") {
-           gameState.score += 5;
-        } else {
+        if (document.getElementById("hint_text").innerText) {
            gameState.score++;
+        } else {
+           gameState.score += 5;
         }
-        $('#score_text').text(`${gameState.score}`);
+        document.getElementById('score_text').innerText = gameState.score;
         // Load the next question immediately.
         display_new_question();
     } else {
         // Incorrect. You could add feedback here, like shaking the box.
         console.log(`Incorrect. You answered ${userAnswer}, but the answer was ${gameState.currentAnswer}`);
         // After the shake, load the next question.
-        if ($('#shake_enabled_checkbox').is(':checked')) {
+        if (document.getElementById('shake_enabled_checkbox').checked) {
             shakeElement('answer_input', display_new_question);
         } else {
             display_new_question();
         }
     }
-    $("#hint_text").text('');
+    document.getElementById("hint_text").innerText = '';
 }
 
 /**
@@ -104,32 +106,25 @@ function check_answer() {
  * @param {function} [onComplete] - Optional callback to run after the animation.
  */
 function shakeElement(elementId, onComplete) {
-    const element = $(`#${elementId}`);
-    const originalColor = element.css('background-color');
-    element.css('background-color','red');
-   
-    // Animate requires a non-static position.
-    element.css('position', 'relative');
-    
-    // A short series of animations to create a shake effect, then run the callback.
-    element.animate({ left: '-=10px' }, 50)
-        .animate({ left: '+=20px' }, 100)
-        .animate({ left: '-=20px' }, 100)
-        .animate({ left: '+=10px' }, 50)    
-        .promise().done(function() { 
-            element.css('background-color', originalColor); 
-            if (onComplete) {
-                onComplete();
-            }
-        });
+    const element = document.getElementById(`${elementId}`);
+    const originalColor = element.style.backgroundColor;
+    element.style.backgroundColor = "red";
+    element.classList.add('shake-active');
+    setTimeout(() => {
+      element.classList.remove('shake-active');
+      element.style.backgroundColor = originalColor ;
+    }, 300); // Match the animation duration 
+    if (onComplete) {
+         onComplete();
+    }
 }
 
 // This function hides the modal and its backdrop.
 function hideModal() {
-    const settingsModal = $('#settings_modal');
-    const settingsBackdrop = $('#settings_modal_backdrop');
-    settingsModal.hide();
-    settingsBackdrop.hide();
+    const settingsModal = document.getElementById('settings_modal');
+    const settingsBackdrop = document.getElementById('settings_modal_backdrop');
+    settingsModal.style.display = 'none';
+    settingsBackdrop.style.display = 'none';
 }
 
 function create_hint() {
@@ -152,33 +147,33 @@ function create_hint() {
 
 function illuminate_hint() {
    // show all of the possible answers
-   $('#hint_text').text('Possible answers: ' + gameState.hints.join(', '));
+   document.getElementById('hint_text').innerText = 'Possible answers: ' + gameState.hints.join(', ');
 }
 
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
     display_new_question();
-    $('#operator_select').on('change', display_new_question);
-    $('#submit_button').on('click', check_answer);
-    $('#answer_input').on('keypress', function(e) {
+    document.getElementById('operator_select').addEventListener('change', display_new_question);
+    document.getElementById('submit_button').addEventListener('click', check_answer);
+    document.getElementById('answer_input').addEventListener('keypress', function(e) {
         if (e.which === 13) { // 13 is the key code for Enter
             check_answer();
         }
     });
-    $('#hint_button').on('click', illuminate_hint);
+    document.getElementById('hint_button').addEventListener('click', illuminate_hint);
     
     // Get references to the modal elements from the HTML.
-    const settingsModal = $('#settings_modal');
-    const settingsBackdrop = $('#settings_modal_backdrop');
-    const closeButton = $('.close-button');
+    const settingsModal = document.getElementById('settings_modal');
+    const settingsBackdrop = document.getElementById('settings_modal_backdrop');
+    const closeButton = document.getElementById('close-button');
 
     // When the settings button (cog) is clicked, toggle the modal's visibility.
-    $('#settings_toggle_button').on('click', function() {
-        settingsModal.toggle();
-        settingsBackdrop.toggle();
+    document.getElementById('settings_toggle_button').addEventListener('click', function() {
+        settingsModal.style.display = 'block';
+        settingsBackdrop.style.display = 'block';
     });
 
     // When the close button (×) or the backdrop is clicked, hide the modal.
-    closeButton.on('click', hideModal);
-    settingsBackdrop.on('click', hideModal);
+    closeButton.addEventListener('click', hideModal);
+    settingsBackdrop.addEventListener('click', hideModal);
     
 });
