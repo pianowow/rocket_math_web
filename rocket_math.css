@@ -45,7 +45,8 @@ body {
 }
 
 .question {
-   display: flex
+   display: flex;
+   justify-content: center;
 }
 
 #question_text {
@@ -269,6 +270,7 @@ body {
     .wrapper {
         margin: 15px;
         padding: 20px;
+        width: 85%;
     }
 
     .header h1 {
@@ -287,7 +289,8 @@ body {
         flex-direction: column;
     }
 
-    #answer_input, #submit_button {
-        width: 80%;
+    #question_text, #answer_input, #submit_button {
+        width: 95%;
+        box-sizing: border-box;
     }
 }
