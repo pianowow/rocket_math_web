@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="rocket_math.css">
-   <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
-   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-   <link rel="shortcut icon" href="favicon.ico" />
-   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-   <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="wrapper">
@@ -19,7 +22,17 @@
         </header>
         <main>
             <section class="question">
-               <div id="question_text"></div>
+               <div id="question_div">
+                  <div id="question_text"></div> 
+                  <div class="operator_div">
+                      <select id="operator_select">
+                          <option value="a">+</option>
+                          <option value="s">-</option>
+                          <option value="m" selected>x</option>
+                          <option value="d">÷</option>
+                      </select>
+                  </div>
+                </div>
             </section>
             <section class="hint">
                <div id="hint_text"></div>
@@ -67,35 +80,7 @@
                </div>
             </section> 
             <div class="score">Score: <span id="score_text">0</span></div>
-          <!-- The settings button will now trigger a modal popup -->
-          <button id="settings_toggle_button" aria-label="Settings">
-            <svg fill="currentColor" width="24px" height="24px" viewBox="-1 0 19 19" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg"><path d="M16.014 8.86v1.44a.587.587 0 0 1-.468.556l-1.182.204a.463.463 0 0 1-.114.006 5.902 5.902 0 0 1-.634 1.528.455.455 0 0 1 .078.084l.691.98a.586.586 0 0 1-.062.725l-1.02 1.02a.586.586 0 0 1-.724.061l-.98-.69a.444.444 0 0 1-.085-.078 5.908 5.908 0 0 1-1.544.637.502.502 0 0 1 0 .175l-.182 1.053a.667.667 0 0 1-.633.532h-1.31a.667.667 0 0 1-.633-.532l-.182-1.053a.495.495 0 0 1 0-.175 5.908 5.908 0 0 1-1.544-.637.444.444 0 0 1-.085.077l-.98.691a.586.586 0 0 1-.725-.062l-1.02-1.02a.586.586 0 0 1-.061-.723l.691-.98a.454.454 0 0 1 .077-.085 5.901 5.901 0 0 1-.633-1.528.466.466 0 0 1-.114-.006l-1.182-.204a.586.586 0 0 1-.468-.556V8.86a.586.586 0 0 1 .468-.556L2.636 8.1a.437.437 0 0 1 .114-.005 5.912 5.912 0 0 1 .633-1.528.466.466 0 0 1-.077-.085l-.691-.98a.587.587 0 0 1 .061-.724l1.02-1.02a.587.587 0 0 1 .725-.062l.98.691a.444.444 0 0 1 .085.078 5.903 5.903 0 0 1 1.528-.634.433.433 0 0 1 .005-.114l.204-1.182a.586.586 0 0 1 .556-.468h1.442a.586.586 0 0 1 .556.468l.204 1.182a.448.448 0 0 1 .005.114 5.908 5.908 0 0 1 1.528.634.444.444 0 0 1 .085-.078l.98-.691a.586.586 0 0 1 .724.062l1.02 1.02a.586.586 0 0 1 .062.724l-.691.98a.467.467 0 0 1-.078.085 5.902 5.902 0 0 1 .634 1.528.434.434 0 0 1 .114.005l1.182.204a.587.587 0 0 1 .468.556zm-4.955.72a2.559 2.559 0 1 0-2.56 2.56 2.559 2.559 0 0 0 2.56-2.56z"/>
-            </svg>
-          </button>
         </main>
-    </div>
-
-    <!-- Modal Structure for Settings -->
-    <div id="settings_modal_backdrop" class="modal-backdrop" style="display: none;"></div>
-    <div id="settings_modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Settings</h2>
-                <button id="close-button" aria-label="Close settings">&times;</button>
-            </div>
-            <div class="options">
-                <div class="option-row">
-                    <label for="operator_select">Operation:</label>
-                    <select id="operator_select">
-                        <option value="a">Addition</option>
-                        <option value="s">Subtraction</option>
-                        <option value="m" selected>Multiplication</option>
-                        <option value="d">Division</option>
-                    </select>
-                </div>
-                <label><input type="checkbox" id="shake_enabled_checkbox" checked> Enable shake on incorrect</label>
-            </div>
-        </div>
     </div>
 
     <script src="rocket_math.js"></script>

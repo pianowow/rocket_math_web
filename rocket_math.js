@@ -91,11 +91,7 @@ function check_answer() {
         // Incorrect. You could add feedback here, like shaking the box.
         console.log(`Incorrect. You answered ${userAnswer}, but the answer was ${gameState.currentAnswer}`);
         // After the shake, load the next question.
-        if (document.getElementById('shake_enabled_checkbox').checked) {
-            shakeElement('answer_input', display_new_question);
-        } else {
-            display_new_question();
-        }
+        shakeElement('answer_input', display_new_question);
     }
     document.getElementById("hint_text").innerText = '';
 }
@@ -119,13 +115,6 @@ function shakeElement(elementId, onComplete) {
     }
 }
 
-// This function hides the modal and its backdrop.
-function hideModal() {
-    const settingsModal = document.getElementById('settings_modal');
-    const settingsBackdrop = document.getElementById('settings_modal_backdrop');
-    settingsModal.style.display = 'none';
-    settingsBackdrop.style.display = 'none';
-}
 
 function create_hint() {
    // first get the answer
@@ -160,20 +149,4 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
     document.getElementById('hint_button').addEventListener('click', illuminate_hint);
-    
-    // Get references to the modal elements from the HTML.
-    const settingsModal = document.getElementById('settings_modal');
-    const settingsBackdrop = document.getElementById('settings_modal_backdrop');
-    const closeButton = document.getElementById('close-button');
-
-    // When the settings button (cog) is clicked, toggle the modal's visibility.
-    document.getElementById('settings_toggle_button').addEventListener('click', function() {
-        settingsModal.style.display = 'block';
-        settingsBackdrop.style.display = 'block';
-    });
-
-    // When the close button (×) or the backdrop is clicked, hide the modal.
-    closeButton.addEventListener('click', hideModal);
-    settingsBackdrop.addEventListener('click', hideModal);
-    
 });
