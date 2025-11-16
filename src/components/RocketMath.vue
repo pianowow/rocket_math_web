@@ -448,5 +448,14 @@ body {
         width: 95%;
         box-sizing: border-box;
     }
+  .rocket-top {
+    top: -179px;
+    left: -19px;
+  }
+
+  .rocket-bottom {
+    top: 504px;
+    left: -19px;
+  }
 }
 </style>
