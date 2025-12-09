@@ -1,5 +1,6 @@
 <script setup >
   import { onMounted, ref } from 'vue'
+  import TutorialPopup from './TutorialPopup.vue'
 /**
  *   Rocket Math by Chris Irwin and Olivia Irwin
  *   Displays arithmetic problems for 2nd and 3rd grade math
@@ -139,6 +140,31 @@ onMounted( () => {
     display_new_question();
 });
 
+function operationChanged() {
+  gameState.value.score = 0;
+  display_new_question();
+}
+
+const tutorialArray = ref([false, false, false])
+
+function startTutorial() {
+  tutorialArray.value[0]=true;
+}
+
+function tutorial2() {
+  tutorialArray.value[0]=false;
+  tutorialArray.value[1]=true;
+}
+
+function tutorial3() {
+  tutorialArray.value[1]=false;
+  tutorialArray.value[2]=true;
+}
+
+function closeTutorial() {
+  tutorialArray.value = [false, false, false];
+}
+
 </script>
 
 <template>
@@ -154,7 +180,7 @@ onMounted( () => {
                <div id="question_div">
                  <div id="question_text">{{ questionText }}</div>
                   <div class="operator_div">
-                      <select id="operator_select" v-model='operator' @change='display_new_question'>
+                      <select id="operator_select" v-model='operator' @change='operationChanged'>
                           <option value="a">+</option>
                           <option value="s">-</option>
                           <option value="m" selected>x</option>
@@ -210,7 +236,11 @@ onMounted( () => {
                </div>
             </section>
             <div class="score">Score: <span id="score_text">{{ gameState.score }}</span></div>
+        <TutorialPopup v-if="tutorialArray[0]" id="operatorTut" title="Operator" tutorialText="Click here to change from multiplication to another operator." :next=true left="560" top="160" @next="tutorial2" @close="closeTutorial" />
+        <TutorialPopup v-if="tutorialArray[1]" id="hintTut" title="Hint" tutorialText="Click here to get a hint of four possible answers.  One of them is correct." :next=true left="560" top="260" @next="tutorial3" @close = "closeTutorial"/>
+        <TutorialPopup v-if="tutorialArray[2]" id="ScoreTut" title="Score" tutorialText="A correct answer is worth 5 points, but if you use a hint, only 1 point." :next=false left="340" top="325" @close="closeTutorial"/>
         </main>
+        <button @click="startTutorial()" class="tutorial_button">?</button>
         <img src="/images/rocket_bottom.png" class="rocket-bottom"/>
     </div>
     </body>
@@ -418,7 +448,16 @@ body {
   animation: shake-left-right 0.3s ease-in-out; /* Adjust duration and timing as needed */
 }
 
-
+    .tutorial_button {
+      position: absolute;
+      top: 370px;
+      left: 540px;
+      background-color: transparent;
+      border: none;
+      font-size: 30px;
+      color: #775080;
+      cursor: pointer;
+    }
 
 /* Responsive design */
 @media (max-width: 600px) {
