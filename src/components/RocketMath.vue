@@ -247,9 +247,9 @@ function closeTutorial() {
                </div>
             </section>
             <div class="score">Score: <span id="score_text">{{ gameState.score }}</span></div>
-        <TutorialPopup v-if="tutorialArray[0]" id="operatorTut" title="Operator" tutorialText="Click here to change from multiplication to another operator." :next=true left="560" top="160" @next="tutorial2" @close="closeTutorial" />
+        <TutorialPopup v-if="tutorialArray[0]" id="operatorTut" title="Operator" tutorialText="Click here to change the operator." :next=true left="560" top="160" @next="tutorial2" @close="closeTutorial" />
         <TutorialPopup v-if="tutorialArray[1]" id="hintTut" title="Hint" tutorialText="Click here to get a hint of four possible answers.  One of them is correct." :next=true left="560" top="260" @next="tutorial3" @close = "closeTutorial"/>
-        <TutorialPopup v-if="tutorialArray[2]" id="ScoreTut" title="Score" tutorialText="A correct answer is worth 5 points, but if you use a hint, only 1 point." :next=false left="340" top="325" @close="closeTutorial"/>
+        <TutorialPopup v-if="tutorialArray[2]" id="ScoreTut" title="Score" tutorialText="A correct answer is worth 5 points, but if you use a hint, only 1 point.  Incorrect is -3 points or -5 points if you used a hint." :next=false left="340" top="325" @close="closeTutorial"/>
         </main>
         <button @click="startTutorial()" class="tutorial_button">?</button>
         <img src="/images/rocket_bottom.png" class="rocket-bottom"/>
