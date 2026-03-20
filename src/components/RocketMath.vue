@@ -16,7 +16,7 @@ let gameState = ref({
     hints: []
 });
 let questionText = ref('');
-let operator = ref('m');
+let operator = ref('r');
 let answerInput = ref('');
 let hintText = ref('');
 
@@ -63,7 +63,12 @@ function new_question(operation) {
  * Creates a new question and displays it in the question div.
  */
 function display_new_question() {
-    const problem = new_question(operator.value);
+    let op = operator.value;
+    if (op === 'r') {
+       const operations = ['a', 's', 'm', 'd'];
+       op = operations[Math.floor(Math.random() * operations.length)];
+    }
+    const problem = new_question(op);
     gameState.value.currentAnswer = problem.answer;
     create_hint();
     questionText.value = `${problem.num1} ${problem.operator} ${problem.num2} = ?`;
@@ -89,6 +94,11 @@ function check_answer() {
         console.log(`Incorrect. You answered ${userAnswer}, but the answer was ${gameState.value.currentAnswer}`);
         // After the shake, load the next question.
         shakeElement('answer_input', display_new_question);
+        if (hintText.value) {
+           gameState.value.score -= 5;
+        } else {
+           gameState.value.score -= 3;
+        }
     }
     hintText.value = '';
 }
@@ -183,8 +193,9 @@ function closeTutorial() {
                       <select id="operator_select" v-model='operator' @change='operationChanged'>
                           <option value="a">+</option>
                           <option value="s">-</option>
-                          <option value="m" selected>x</option>
+                          <option value="m">x</option>
                           <option value="d">÷</option>
+                          <option value="r" selected>Random</option>
                       </select>
                   </div>
                 </div>
