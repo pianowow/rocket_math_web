@@ -110,12 +110,11 @@ function check_answer() {
  */
 function shakeElement(elementId, onComplete) {
     const element = document.getElementById(`${elementId}`);
-    const originalColor = element.style.backgroundColor;
     element.style.backgroundColor = "red";
     element.classList.add('shake-active');
     setTimeout(() => {
       element.classList.remove('shake-active');
-      element.style.backgroundColor = originalColor ;
+      element.style.backgroundColor = "#fff" ;
     }, 300); // Match the animation duration
     if (onComplete) {
          onComplete();
