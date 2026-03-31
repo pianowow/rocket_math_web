@@ -93,7 +93,7 @@ function check_answer() {
         // Incorrect. You could add feedback here, like shaking the box.
         console.log(`Incorrect. You answered ${userAnswer}, but the answer was ${gameState.value.currentAnswer}`);
         // After the shake, load the next question.
-        shakeElement('answer_input', display_new_question);
+        shakeElement('answer_input');
         if (hintText.value) {
            gameState.value.score -= 5;
         } else {
@@ -108,7 +108,7 @@ function check_answer() {
  * @param {string} elementId - The ID of the element to shake (without the #).
  * @param {function} [onComplete] - Optional callback to run after the animation.
  */
-function shakeElement(elementId, onComplete) {
+function shakeElement(elementId) {
     const element = document.getElementById(`${elementId}`);
     element.style.backgroundColor = "red";
     element.classList.add('shake-active');
@@ -116,9 +116,6 @@ function shakeElement(elementId, onComplete) {
       element.classList.remove('shake-active');
       element.style.backgroundColor = "#fff" ;
     }, 300); // Match the animation duration
-    if (onComplete) {
-         onComplete();
-    }
 }
 
 
