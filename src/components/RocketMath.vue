@@ -20,6 +20,10 @@ let operator = ref('r');
 let answerInput = ref('');
 let hintText = ref('');
 
+function handleAnswerInput(event) {
+    answerInput.value = event.target.value.replace(/\D/g, '');
+}
+
 /**
  * Generates a new math problem.
  * @param {string} operation - The type of operation: 'a' (add), 's' (subtract), 'm' (multiply), 'd' (divide).
@@ -202,7 +206,8 @@ function closeTutorial() {
             <section class="answer">
                 <label for="answer_input" class="visually-hidden">Your Answer</label>
                 <input v-model="answerInput" type="text" id="answer_input" placeholder="Answer"
-                @keyup.enter = "check_answer">
+                inputmode="numeric" pattern="[0-9]*" autocomplete="off"
+                @input="handleAnswerInput" @keyup.enter = "check_answer">
                 <input type="button" id="submit_button" value="Submit" @click='check_answer'>
                <div id="hint">
                   <button class="button" id="hint_button" @click = "illuminate_hint">
